@@ -12,7 +12,11 @@ __version__ = VERSION
 # Classes                                                                     #
 # --------------------------------------------------------------------------- #
 
-from .basesettings import BaseSettings
+# Required to parse version before build?
+try:
+    from .basesettings import BaseSettings
+except ModuleNotFoundError:
+    pass
 
 
 # --------------------------------------------------------------------------- #
