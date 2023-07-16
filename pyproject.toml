@@ -7,7 +7,7 @@ name = "settus"
 authors = [
     {name = "Olivier Soucy", email = "osoucy.transactions@gmail.com"},
 ]
-description = "A DataOps framework for building a lakehouse"
+description = "Settings management using Pydantic, with ability to retrieve cloud secrets."
 readme = "README.md"
 requires-python = ">=3.9"
 keywords = ["one", "two"]
