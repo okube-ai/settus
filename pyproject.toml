@@ -31,6 +31,12 @@ test = [
     "pytest-cov",
 #    "tox"
 ]
+azure = [
+]
+aws = [
+]
+gcp = [
+]
 
 [project.urls]
 "Homepage" = "https://github.com/opencubes-ai/settus"
