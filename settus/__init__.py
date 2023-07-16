@@ -12,7 +12,7 @@ __version__ = VERSION
 # Classes                                                                     #
 # --------------------------------------------------------------------------- #
 
-from settus.basesettings import BaseSettings
+from .basesettings import BaseSettings
 
 
 # --------------------------------------------------------------------------- #
