@@ -23,7 +23,7 @@ jobs:
         run: pip install flit
 
       - name: Build and publish settus to pypi
-        run: make build publish
+        run: make publish
         env:
           FLIT_INDEX_URL: ${{ vars.FLIT_INDEX_URL }}
           FLIT_USERNAME: ${{ vars.FLIT_USERNAME }}
