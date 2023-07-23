@@ -33,14 +33,11 @@ jobs:
       - name: Install flit
         run: pip install flit
 
-#      - name: Install local
-#        run: pip install ./
+      - name: Install local
+        run: pip install ./
 
-      - name: Install git
-        run: pip install git+https://github.com/opencubes-ai/settus.git@imports -v
-
-#      - name: Run tests
-#        run: make dev install test
+      - name: Run tests
+        run: make dev install test
 
 #      - name: Publish test coverage
 #        uses: codecov/codecov-action@v1
