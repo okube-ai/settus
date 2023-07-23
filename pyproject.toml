@@ -48,4 +48,4 @@ gcp = [
 "Bug Tracker" = "https://github.com/opencubes-ai/settus/issues"
 
 [tool.setuptools.dynamic]
-version = {attr = "settus.__version__"}
+version = {attr = "settus._version.VERSION"}
