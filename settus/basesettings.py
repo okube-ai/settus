@@ -1,7 +1,7 @@
 import pydantic
-print("pydantic version", pydantic.__version__)
+print("pydantic version in venv", pydantic.__version__)
 import pydantic_settings
-print("pydantic settings version", pydantic_settings.__version__)
+print("pydantic settings version in venv", pydantic_settings.__version__)
 
 from pydantic_settings import BaseSettings as _BaseSettings
 
