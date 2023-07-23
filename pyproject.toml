@@ -25,6 +25,9 @@ dependencies = [
     "pydantic-settings>=2.0",
 ]
 [project.optional-dependencies]
+build = [
+    "pydantic>2.0",
+]
 dev = [
     "black",
     "flit",
