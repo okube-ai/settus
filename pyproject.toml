@@ -1,10 +1,10 @@
 [build-system]
 requires = [
     "flit_core >=3.2,<4",
-    "setuptools",
+#    "setuptools",
 ]
-#build-backend = "flit_core.buildapi"
-build-backend = "setuptools.build_meta"
+build-backend = "flit_core.buildapi"
+#build-backend = "setuptools.build_meta"
 
 [project]
 name = "settus"
@@ -47,5 +47,5 @@ gcp = [
 "Homepage" = "https://github.com/opencubes-ai/settus"
 "Bug Tracker" = "https://github.com/opencubes-ai/settus/issues"
 
-[tool.setuptools.dynamic]
-version = {attr = "settus._version.VERSION"}
+#[tool.setuptools.dynamic]
+#version = {attr = "settus._version.VERSION"}
