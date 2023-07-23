@@ -44,6 +44,3 @@ gcp = [
 [project.urls]
 "Homepage" = "https://github.com/opencubes-ai/settus"
 "Bug Tracker" = "https://github.com/opencubes-ai/settus/issues"
-
-#[tool.setuptools.dynamic]
-#version = {attr = "settus._version.VERSION"}
