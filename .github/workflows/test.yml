@@ -37,7 +37,7 @@ jobs:
 #        run: pip install ./
 
       - name: Install git
-        run: pip install git+https://github.com/opencubes-ai/settus.git@imports
+        run: pip install git+https://github.com/opencubes-ai/settus.git@imports -v
 
 #      - name: Run tests
 #        run: make dev install test
