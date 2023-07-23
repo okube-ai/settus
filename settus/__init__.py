@@ -13,7 +13,7 @@ __version__ = VERSION
 # --------------------------------------------------------------------------- #
 
 # Required to parse version before build?
-# from .basesettings import BaseSettings
+from .basesettings import BaseSettings
 
 
 # --------------------------------------------------------------------------- #
