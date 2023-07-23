@@ -33,9 +33,6 @@ jobs:
       - name: Install flit
         run: pip install flit
 
-      - name: Install local
-        run: pip install ./
-
       - name: Run tests
         run: make dev install test
 
