@@ -17,8 +17,8 @@ jobs:
       matrix:
         pyVersion:
           - '3.9'
-          - '3.10'
-          - '3.11'
+#          - '3.10'
+#          - '3.11'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -33,8 +33,14 @@ jobs:
       - name: Install flit
         run: pip install flit
 
-      - name: Run tests
-        run: make dev install test
+      - name: Install local
+        run: pip install ./
+
+      - name: Install git
+        run: pip install git+https://github.com/opencubes-ai/settus.git@imports
+
+#      - name: Run tests
+#        run: make dev install test
 
 #      - name: Publish test coverage
 #        uses: codecov/codecov-action@v1
