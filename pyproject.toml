@@ -25,6 +25,13 @@ dynamic = ["version"]
 dependencies = [
     "pydantic-settings>=2.0",
 ]
+
+[tool.flit.metadata]
+requires = [
+    "pydantic>2.0",
+]
+
+
 [project.optional-dependencies]
 build = [
     "pydantic>2.0",
