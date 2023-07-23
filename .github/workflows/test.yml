@@ -17,8 +17,8 @@ jobs:
       matrix:
         pyVersion:
           - '3.9'
-#          - '3.10'
-#          - '3.11'
+          - '3.10'
+          - '3.11'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
