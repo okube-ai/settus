@@ -23,14 +23,9 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
+    "pydantic>2.0",
     "pydantic-settings>=2.0",
 ]
-
-[tool.flit.metadata]
-requires = [
-    "pydantic>2.0",
-]
-
 
 [project.optional-dependencies]
 build = [
