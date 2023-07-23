@@ -12,7 +12,6 @@ __version__ = VERSION
 # Classes                                                                     #
 # --------------------------------------------------------------------------- #
 
-# Required to parse version before build?
 from .basesettings import BaseSettings
 
 
