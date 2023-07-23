@@ -1,3 +1,5 @@
+import flit
+print("flit version in venv", flit.__version__)
 import pydantic
 print("pydantic version in venv", pydantic.__version__)
 import pydantic_settings
