@@ -6,12 +6,12 @@
 # having to import the package.
 [build-system]
 requires = [
-#    "flit_core >=3.2,<4",
-    "setuptools",
-    "setuptools-scm",
+    "flit_core >=3.2,<4",
+#    "setuptools",
+#    "setuptools-scm",
 ]
-#build-backend = "flit_core.buildapi"
-build-backend = "setuptools.build_meta"
+build-backend = "flit_core.buildapi"
+#build-backend = "setuptools.build_meta"
 
 [project]
 name = "settus"
@@ -22,13 +22,14 @@ description = "Settings management using Pydantic, with ability to retrieve clou
 readme = "README.md"
 requires-python = ">=3.9"
 keywords = ["one", "two"]
+version = "0.0.6"
 license = {text = "MIT"}
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-dynamic = ["version"]
+#dynamic = ["version"]
 dependencies = [
     "pydantic-settings>=2.0",
 ]
