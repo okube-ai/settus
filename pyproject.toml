@@ -1,8 +1,18 @@
+# The preference build system would have been flit, but setuptools had to be
+# used to support `pip install git+http...` within Databricks. When trying
+# to parse the version using flit, it needs to import the full package
+# and some dependencies might be missing in the virtual environment.
+# Setuptools allow to explicitly set the location of the version without
+# having to import the package.
 [build-system]
 requires = [
-    "flit_core >=3.2,<4",
+#    "flit_core >=3.2,<4",
+    "setuptools",
+    "setuptools-scm",
+    "build",
 ]
-build-backend = "flit_core.buildapi"
+#build-backend = "flit_core.buildapi"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "settus"
@@ -27,7 +37,8 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "black",
-    "flit",
+#    "flit",
+    "twine",
 ]
 test = [
     "pytest",
@@ -44,3 +55,10 @@ gcp = [
 [project.urls]
 "Homepage" = "https://github.com/opencubes-ai/settus"
 "Bug Tracker" = "https://github.com/opencubes-ai/settus/issues"
+
+[tool.setuptools.packages.find]
+include = ["settus*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "settus._version._VERSION"}
+
