@@ -3,7 +3,7 @@ install:
 	pip install ./
 
 dev:
-	pip install -e ./
+	pip install -e './[dev]'
 
 test:
 	pytest --junitxml=junit/test-results.xml --cov=settus --cov-report=xml --cov-report=html tests
