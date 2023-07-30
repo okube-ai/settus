@@ -56,5 +56,9 @@ gcp = [
 "Homepage" = "https://github.com/opencubes-ai/settus"
 "Bug Tracker" = "https://github.com/opencubes-ai/settus/issues"
 
+[tool.setuptools.packages.find]
+packages = ["settus*"]
+
 [tool.setuptools.dynamic]
 version = {attr = "settus._version._VERSION"}
+
