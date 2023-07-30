@@ -11,8 +11,8 @@ requires = [
     "setuptools-scm",
     "build",
 ]
-build-backend = "flit_core.buildapi"
-#build-backend = "setuptools.build_meta"
+#build-backend = "flit_core.buildapi"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "settus"
