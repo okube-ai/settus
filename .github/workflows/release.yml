@@ -25,6 +25,6 @@ jobs:
           FLIT_INDEX_URL: ${{ vars.FLIT_INDEX_URL }}
           FLIT_USERNAME: ${{ vars.FLIT_USERNAME }}
           FLIT_PASSWORD: ${{ secrets.FLIT_PASSWORD }}
-          TWINE_REPOSITORY: ${{ vars.TWINE_REPOSITORY }}
+          TWINE_REPOSITORY_URL: ${{ vars.TWINE_REPOSITORY_URL }}
           TWINE_USERNAME: ${{ vars.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
