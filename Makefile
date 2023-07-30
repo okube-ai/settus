@@ -1,5 +1,4 @@
 install:
-	#pip install build
 	pip install ./
 
 dev:
@@ -12,9 +11,10 @@ coverage:
 	open htmlcov/index.html
 
 build:
-	#pip install build
+	pip install build
 	python -m build
 
 publish:
+	pip install build
 	python -m build
 	twine upload dist/*
