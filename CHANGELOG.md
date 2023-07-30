@@ -1,17 +1,8 @@
 # Release History
 
-## [0.0.2] - Unreleased
-**Added**
-- n/a
-
-**Fixed**
-- n/a
-
+## [0.0.2] - 2023-07-30
 **Updated**
-- n/a
-
-**Breaking changes**
-- n/a
+- Changed build backend from flit to setuptools
 
 ## [0.0.1] - 2023-07-16
 **Added**
