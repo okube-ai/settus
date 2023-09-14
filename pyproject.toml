@@ -45,6 +45,8 @@ test = [
 #    "tox"
 ]
 azure = [
+    "azure-identity",
+    "azure-keyvault"
 ]
 aws = [
 ]
