@@ -14,7 +14,7 @@
 **/.idea/**
 
 # Local settings and environment variables
-#settings_local/*.*
+secrets/*.*
 
 # --------------------------------------------------------------------------- #
 # Installation and build                                                      #

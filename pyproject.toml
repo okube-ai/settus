@@ -45,10 +45,14 @@ test = [
 #    "tox"
 ]
 azure = [
+    "azure-identity",
+    "azure-keyvault"
 ]
 aws = [
 ]
 gcp = [
+]
+databricks = [
 ]
 
 [project.urls]
