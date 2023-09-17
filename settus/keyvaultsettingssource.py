@@ -1,4 +1,4 @@
-from typing import Any, Dict, Tuple
+from typing import Any, Dict, Tuple, Union
 
 from pydantic.fields import FieldInfo
 from pydantic_settings.sources import PydanticBaseEnvSettingsSource
@@ -47,7 +47,7 @@ class KeyVaultSettingsSource(PydanticBaseEnvSettingsSource):
 
         # Keyvault client
         client = SecretClient(vault_url=keyvault_url, credential=keyvault_credentials)
-        env_val: str | None = None
+        env_val: Union[str, None] = None
         for field_key, env_name, value_is_complex in self._extract_field_info(
             field, field_name
         ):
