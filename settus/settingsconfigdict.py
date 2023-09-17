@@ -10,4 +10,3 @@ class SettingsConfigDict(_SettingsConfigDict, total=False):
 
 
 config_keys |= set(SettingsConfigDict.__annotations__.keys())
-

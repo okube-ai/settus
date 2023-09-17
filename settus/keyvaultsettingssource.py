@@ -16,11 +16,8 @@ class KeyVaultSettingsSource(PydanticBaseEnvSettingsSource):
     """
 
     def get_field_value(
-            self,
-            field: FieldInfo,
-            field_name: str
+        self, field: FieldInfo, field_name: str
     ) -> Tuple[Any, str, bool]:
-
         keyvault_url = None
         keyvault_credentials = None
 
@@ -49,12 +46,11 @@ class KeyVaultSettingsSource(PydanticBaseEnvSettingsSource):
             keyvault_credentials = DefaultAzureCredential()
 
         # Keyvault client
-        client = SecretClient(
-            vault_url=keyvault_url,
-            credential=keyvault_credentials
-        )
+        client = SecretClient(vault_url=keyvault_url, credential=keyvault_credentials)
         env_val: str | None = None
-        for field_key, env_name, value_is_complex in self._extract_field_info(field, field_name):
+        for field_key, env_name, value_is_complex in self._extract_field_info(
+            field, field_name
+        ):
             if "_" in env_name:
                 continue
             try:
@@ -67,12 +63,11 @@ class KeyVaultSettingsSource(PydanticBaseEnvSettingsSource):
         return env_val, field_key, value_is_complex
 
     def prepare_field_value(
-            self, field_name: str, field: FieldInfo, value: Any, value_is_complex: bool
+        self, field_name: str, field: FieldInfo, value: Any, value_is_complex: bool
     ) -> Any:
         return value
 
     def __call__(self) -> Dict[str, Any]:
-
         d: Dict[str, Any] = {}
 
         for field_name, field in self.settings_cls.model_fields.items():

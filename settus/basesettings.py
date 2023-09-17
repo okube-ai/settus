@@ -19,7 +19,6 @@ class BaseSettings(_BaseSettings):
         dotenv_settings: PydanticBaseSettingsSource,
         file_secret_settings: PydanticBaseSettingsSource,
     ) -> Tuple[PydanticBaseSettingsSource, ...]:
-
         # Highest priority listed first
         return (
             init_settings,
