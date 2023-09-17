@@ -2,7 +2,7 @@ install:
 	pip install ./
 
 dev:
-	pip install -e './[dev,test]'
+	pip install -e './[dev,test,azure]'
 
 test:
 	pytest --junitxml=junit/test-results.xml --cov=settus --cov-report=xml --cov-report=html tests
