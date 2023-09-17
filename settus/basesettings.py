@@ -9,7 +9,6 @@ from .keyvaultsettingssource import KeyVaultSettingsSource
 
 class BaseSettings(_BaseSettings):
     model_config = ConfigDict(populate_by_name=True)
-    # pass
 
     @classmethod
     def settings_customise_sources(
@@ -20,6 +19,8 @@ class BaseSettings(_BaseSettings):
         dotenv_settings: PydanticBaseSettingsSource,
         file_secret_settings: PydanticBaseSettingsSource,
     ) -> Tuple[PydanticBaseSettingsSource, ...]:
+
+        # Highest priority listed first
         return (
             init_settings,
             env_settings,

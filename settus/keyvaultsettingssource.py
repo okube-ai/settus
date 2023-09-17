@@ -21,15 +21,37 @@ class KeyVaultSettingsSource(PydanticBaseEnvSettingsSource):
             field_name: str
     ) -> Tuple[Any, str, bool]:
 
-        # Check if URL exists
-        keyvault_url = self.config.get("keyvault_url")
+        keyvault_url = None
+        keyvault_credentials = None
+
+        # Get keyvault from field
+        if field.json_schema_extra is not None:
+            keyvault_url = field.json_schema_extra.get("keyvault_url")
+            keyvault_credentials = field.json_schema_extra.get("keyvault_credentials")
+
+        # Get keyvault from config
+        if keyvault_url is None:
+            keyvault_url = self.config.get("keyvault_url")
 
         if keyvault_url is None:
             return None, field_name, False
 
+        if keyvault_credentials is None:
+            keyvault_credentials = self.config.get("keyvault_credentials")
+
+        # Default credentials
+        # https://learn.microsoft.com/en-us/azure/developer/python/sdk/authentication-overview#sequence-of-authentication-methods-when-you-use-defaultazurecredential
+        # The most common approach here is to set the following environment variables:
+        #  - AZURE_TENANT_ID
+        #  - AZURE_CLIENT_ID
+        #  - AZURE_CLIENT_SECRET
+        if keyvault_credentials is None:
+            keyvault_credentials = DefaultAzureCredential()
+
+        # Keyvault client
         client = SecretClient(
             vault_url=keyvault_url,
-            credential=DefaultAzureCredential()
+            credential=keyvault_credentials
         )
         env_val: str | None = None
         for field_key, env_name, value_is_complex in self._extract_field_info(field, field_name):
@@ -50,6 +72,7 @@ class KeyVaultSettingsSource(PydanticBaseEnvSettingsSource):
         return value
 
     def __call__(self) -> Dict[str, Any]:
+
         d: Dict[str, Any] = {}
 
         for field_name, field in self.settings_cls.model_fields.items():
