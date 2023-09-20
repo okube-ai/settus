@@ -5,6 +5,7 @@ from typing import Any
 from typing import Tuple
 from typing import Type
 from pydantic import ConfigDict
+from pydantic import AliasChoices
 from pydantic._internal._utils import deep_update
 from pydantic_settings import BaseSettings as _BaseSettings
 from pydantic_settings import PydanticBaseSettingsSource
@@ -93,17 +94,27 @@ class BaseSettings(_BaseSettings):
             file_secret_settings=file_secret_settings,
         )
         if sources:
-            # This section is re-written to map all alias to field names. This helps prevent issues when a value is
-            # found for both the field name and the alias(es). A common scenario is when a value is found for both
-            # an environment variable matching the alias and an init value matching the field name.
+            # This section is re-written from base class to map all alias to field names. This helps prevent issues
+            # when a value is found for both the field name and the alias(es). A common scenario is when a value is
+            # found for both an environment variable matching the alias and an init value matching the field name.
 
             # Build map
-            # TODO: Add support when populate_by_name is False and when multiple aliases are provided.
             _map = {}
-            for k, f in self.model_fields.items():
-                alias = f.alias
-                if alias is not None:
-                    _map[alias] = k
+            if self.model_config["populate_by_name"]:
+                for k, f in self.model_fields.items():
+                    alias = f.alias
+                    if isinstance(alias, str):
+                        _map[alias] = k
+                    elif isinstance(alias, AliasChoices):
+                        for a in alias.choices:
+                            _map[a] = k
+            else:
+                for k, f in self.model_fields.items():
+                    alias = f.alias
+                    if isinstance(alias, AliasChoices):
+                        k0 = alias.choices[0]
+                        for a in alias.choices[1:]:
+                            _map[k0] = a
 
             _sources = []
             for d in [s() for s in sources]:
