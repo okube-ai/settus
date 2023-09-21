@@ -54,17 +54,6 @@ class BaseSettings(_BaseSettings):
             # file_secret_settings,
         )
 
-    # @model_validator(mode='before')
-    # @classmethod
-    # def check_card_number_omitted(cls, data: Any) -> Any:
-    #     print("VALIDATOR!!")
-    #     print(data)
-    #     # if isinstance(data, dict):
-    #     #     assert (
-    #     #         'card_number' not in data
-    #     #     ), 'card_number should not be included'
-    #     return data
-
     def _settings_build_values(
         self,
         init_kwargs: dict[str, Any],
