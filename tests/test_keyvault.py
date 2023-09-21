@@ -18,17 +18,17 @@ def test_keyvault():
         env_1: str = Field(default="undefined")
         top: str = Field(default="undefined")
         kv_1: str = Field(default="undefined", alias="my-secret")
-        kv_2: str = Field(default="undefined", alias="my-secret")
-        # kv_2: str = Field(default="undefined", alias=AliasChoices("not-my-secret", "my-secret"))
-        # kv_2: str = Field(default="undefined", alias=AliasChoices("not-my-secret", "my-secret"))
-        # kv_3: str = Field(default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL)
+        kv_2: str = Field(default="undefined", alias=AliasChoices("not-my-secret", "my-secret"))
+        kv_3: str = Field(default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL)
+        kv_4: str = Field(default="undefined", alias=AliasChoices("not-my-secret"))
 
     settings = Settings()
-    print(settings)
     assert settings.env_1 == "v1"
     assert settings.top == "topsecret"
     assert settings.kv_1 == "secretsauce"
-    # assert settings.kv_2 == "v1"
+    assert settings.kv_2 == "secretsauce"
+    assert settings.kv_3 == "secretsauce"
+    assert settings.kv_4 == "undefined"
 
 
 if __name__ == "__main__":
