@@ -1,5 +1,18 @@
 # Release History
 
+## [0.0.5]
+**Added**
+- 
+
+**Updated**
+-
+
+**Fixed**
+-
+
+**Breaking Change**
+-
+
 ## [0.0.4] - 2023-09-21
 **Added**
 - Support for the same alias(es) used across multiple fields
