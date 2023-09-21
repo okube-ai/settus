@@ -1,6 +1,7 @@
 from __future__ import annotations as _annotations
 
 from pathlib import Path
+from collections import defaultdict
 from typing import Any
 from typing import Tuple
 from typing import Type
@@ -24,6 +25,18 @@ from .keyvaultsettingssource import KeyVaultSettingsSource
 class BaseSettings(_BaseSettings):
     model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
+    @property
+    def model_field_alias(self) -> list:
+        aliases = []
+        for k, f in self.model_fields.items():
+            alias = f.alias
+            if isinstance(alias, str):
+                aliases += [(k, alias)]
+            elif isinstance(alias, AliasChoices):
+                for a in alias.choices:
+                    aliases += [(k, a)]
+        return aliases
+
     @classmethod
     def settings_customise_sources(
         cls,
@@ -41,6 +54,17 @@ class BaseSettings(_BaseSettings):
             # file_secret_settings,
         )
 
+    # @model_validator(mode='before')
+    # @classmethod
+    # def check_card_number_omitted(cls, data: Any) -> Any:
+    #     print("VALIDATOR!!")
+    #     print(data)
+    #     # if isinstance(data, dict):
+    #     #     assert (
+    #     #         'card_number' not in data
+    #     #     ), 'card_number should not be included'
+    #     return data
+
     def _settings_build_values(
         self,
         init_kwargs: dict[str, Any],
@@ -51,6 +75,31 @@ class BaseSettings(_BaseSettings):
         _env_nested_delimiter: str | None = None,
         _secrets_dir: str | Path | None = None,
     ) -> dict[str, Any]:
+
+        # ------------------------------------------------------------------- #
+        # Settus-specific validation                                          #
+        # ------------------------------------------------------------------- #
+
+        # Config
+        if not self.model_config["populate_by_name"]:
+            raise ValueError(
+                "Model configuration `populate_by_name` must be set to False"
+                " when using settus.BaseSettings"
+            )
+
+        # Initialization values
+        for k in init_kwargs:
+            for f, a in self.model_field_alias:
+                if k == a:
+                    raise AttributeError(
+                        f"Attribute {a} is an alias and should not be set in the class"
+                        f"initialization. Instead set {f} to avoid conflicts."
+                    )
+
+        # ------------------------------------------------------------------- #
+        # END-OF-VALIDATION                                                   #
+        # ------------------------------------------------------------------- #
+
         # Determine settings config values
         case_sensitive = _case_sensitive if _case_sensitive is not None else self.model_config.get('case_sensitive')
         env_prefix = _env_prefix if _env_prefix is not None else self.model_config.get('env_prefix')
@@ -94,38 +143,40 @@ class BaseSettings(_BaseSettings):
             file_secret_settings=file_secret_settings,
         )
         if sources:
-            # This section is re-written from base class to map all alias to field names. This helps prevent issues
-            # when a value is found for both the field name and the alias(es). A common scenario is when a value is
-            # found for both an environment variable matching the alias and an init value matching the field name.
+
+            # --------------------------------------------------------------- #
+            # Settus-specific parsing                                         #
+            # --------------------------------------------------------------- #
+
+            # This section is re-written from base class to map all alias to
+            # field names. This helps prevent issues when a value is found for
+            # both the field name and the alias(es). A common scenario is when
+            # a value is found for both an environment variable matching the
+            # alias and an init value matching the field name.
 
             # Build map
-            _map = {}
-            if self.model_config["populate_by_name"]:
-                for k, f in self.model_fields.items():
-                    alias = f.alias
-                    if isinstance(alias, str):
-                        _map[alias] = k
-                    elif isinstance(alias, AliasChoices):
-                        for a in alias.choices:
-                            _map[a] = k
-            else:
-                for k, f in self.model_fields.items():
-                    alias = f.alias
-                    if isinstance(alias, AliasChoices):
-                        k0 = alias.choices[0]
-                        for a in alias.choices[1:]:
-                            _map[k0] = a
+            _map = defaultdict(lambda: [])
+            for k, f in self.model_fields.items():
+                alias = f.alias
+                if isinstance(alias, str):
+                    _map[alias] += [k]
+                elif isinstance(alias, AliasChoices):
+                    for a in alias.choices:
+                        _map[a] += [k]
 
             _sources = []
             for d in [s() for s in sources]:
                 for k, v in list(d.items()):
                     if k in _map:
-                        d[_map[k]] = v
+                        for _v in _map[k]:
+                            d[_v] = v
+                            if _v not in d:
+                                d[_v] = v
                         del d[k]
                 _sources += [d]
 
             return deep_update(*reversed(_sources))
-            # return deep_update(*reversed([source() for source in sources]))
+
         else:
             # no one should mean to do this, but I think returning an empty dict is marginally preferable
             # to an informative error and much better than a confusing error

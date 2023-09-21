@@ -1,5 +1,10 @@
 # Release History
 
+## [0.0.4] - 2023-09-21
+**Added**
+- Support for the same alias used across multiple fields
+
+
 ## [0.0.3] - 2023-09-17
 **Added**
 - Azure Keyvault support
