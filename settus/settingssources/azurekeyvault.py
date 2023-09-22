@@ -9,7 +9,7 @@ from azure.core.exceptions import ResourceNotFoundError
 from azure.core.exceptions import HttpResponseError
 
 
-class KeyVaultSettingsSource(PydanticBaseEnvSettingsSource):
+class AzureKeyVault(PydanticBaseEnvSettingsSource):
     """
     Azure Key Vault settings source class that loads variables from an azure
     secrets manager resource.

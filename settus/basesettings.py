@@ -19,8 +19,8 @@ from pydantic_settings.sources import (
     SecretsSettingsSource,
 )
 
-from .keyvaultsettingssource import KeyVaultSettingsSource
-from .awssecretssettingssource import AWSSecretsSettingsSource
+from settus.settingssources.azurekeyvault import AzureKeyVault
+from settus.settingssources.awssecretsmanager import AWSSecretsManager
 
 
 class BaseSettings(_BaseSettings):
@@ -51,8 +51,8 @@ class BaseSettings(_BaseSettings):
         return (
             init_settings,
             env_settings,
-            KeyVaultSettingsSource(settings_cls),
-            AWSSecretsSettingsSource(settings_cls),
+            AzureKeyVault(settings_cls),
+            AWSSecretsManager(settings_cls),
             # file_secret_settings,
         )
 
