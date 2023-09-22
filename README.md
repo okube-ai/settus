@@ -28,10 +28,25 @@ Settus uses [Pydantic Settings management](https://docs.pydantic.dev/latest/usag
 In other words, if a setting is not available from the initialization or from an environment variable, it wil sequentially lookup the field name (or aliases) in the other available sources. 
 
 ### Azure Key Vault
-By providing the `keyvault_url` to the `SettingsConfigDict` or to a given field. The keyvault credentials can also be provided. Otherwise, the [DefaultAzureCredential](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python) is used. Similarly to environment variables, aliases may be used to set the key of the secrets.
+To use Azure Keyvault, log in using Azure CLI or set these environment variables:
+- `AZURE_TENANT_ID`
+- `AZURE_CLIENT_ID`
+- `AZURE_CLIENT_SECRET`
+
+More logging in options are described [here](https://learn.microsoft.com/en-us/python/api/overview/azure/identity-readme?view=azure-python).
+
+In addition, provide `keyvault_url` either to `SettingsConfigDict` or to a given field.
 
 ### AWS Secrets Manager
-TODO
+To use AWS Secrets Manager, log in using AWS CLI or set these environment variables:
+- `AWS_REGION`
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+
+More logging in options are described [here](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/credentials.html).
+
+In addition, provide `aws_secret_name` either to `SettingsConfigDict` or to a given field.
+
 
 ### GCP Secrets Manager
 TODO
@@ -74,7 +89,7 @@ print(settings.my_aws_secret)
 
 When multiple settings share the same keyvault or aws secret, a global setting may be defined.
 In this case, Azure Keyvault will be called (assuming proper credentials are available) and if
-no value has been found, it will fallback on AWS Secrets. Changing the order of priorities is
+no value has been found, it will fall back on AWS Secrets. Changing the order of priorities is
 possible as described [here](https://docs.pydantic.dev/latest/usage/pydantic_settings/#changing-priority).
 
 ```py

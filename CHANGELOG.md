@@ -5,7 +5,7 @@
 - 
 
 **Updated**
--
+- Documentation to include required environment variables.
 
 **Fixed**
 -

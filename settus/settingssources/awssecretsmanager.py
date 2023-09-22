@@ -9,7 +9,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-class AWSSecretsSettingsSource(PydanticBaseEnvSettingsSource):
+class AWSSecretsManager(PydanticBaseEnvSettingsSource):
     """
     AWS Secrets settings source class that loads variables from an AWS
     secrets manager resource.
