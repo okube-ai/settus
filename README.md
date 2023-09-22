@@ -1,6 +1,6 @@
 # Settus
 
-Settings management using Pydantic Settings and extended to secrets from Azure Keyvault, Databricks secrets [IN PROGRESS], AWS Secrets Manager [IN PROGRESS] and GCP Secrets Manager [IN PROGRESS]
+Settings management using Pydantic Settings and extended to secrets from Azure Keyvault, Databricks secrets [IN PROGRESS], AWS Secrets Manager and GCP Secrets Manager [IN PROGRESS]
 
 ## Okube Company
 
@@ -45,21 +45,61 @@ TODO
 import os
 from settus import BaseSettings
 from settus import Field
-from settus import SettingsConfigDict
 
 KEYVAULT_URL = "https://my-keyvault.vault.azure.net/"
+AWS_SECRET_NAME = "vault"
 
 os.environ["MY_ENV"] = "my_value"
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(keyvault_url="https://my-keyvault.vault.azure.net/")
-    my_env: str = Field(default="undefined")  # value from ENV VAR
-    my_secret: str = Field(default="undefined", alias="my-secret")  # value from KeyVault
+    # Value from environment variable "MY_ENV"
+    my_env: str = Field(default="undefined")
+    
+    # Value from the Azure keyvault named `my-keyvault` with secret key `my-secret` 
+    my_azure_secret: str = Field(default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL)
+    
+    # Value from the secret named `vault` in AWS secrets manager and having the secret key `my-secret`
+    my_aws_secret: str = Field(default="undefined", alias="my-secret", aws_secret_name=AWS_SECRET_NAME)
 
 settings = ()
 print(settings.my_env)
 #> my_value
-print(settings.my_secret)
+print(settings.my_azure_secret)
+#> secret_sauce
+print(settings.my_aws_secret)
+#> secret_sauce
+```
+
+## Configuration Dict Example
+
+When multiple settings share the same keyvault or aws secret, a global setting may be defined.
+In this case, Azure Keyvault will be called (assuming proper credentials are available) and if
+no value has been found, it will fallback on AWS Secrets. Changing the order of priorities is
+possible as described [here](https://docs.pydantic.dev/latest/usage/pydantic_settings/#changing-priority).
+
+```py
+import os
+from settus import BaseSettings
+from settus import Field
+from settus import SettingsConfigDict
+
+KEYVAULT_URL = "https://my-keyvault.vault.azure.net/"
+AWS_SECRET_NAME = "vault"
+
+os.environ["MY_ENV"] = "my_value"
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(keyvault_url=KEYVAULT_URL, aws_secret_name=AWS_SECRET_NAME)
+    my_env: str = Field(default="undefined")
+    my_azure_secret: str = Field(default="undefined", alias="my-secret")
+    my_aws_secret: str = Field(default="undefined", alias="my-secret")
+
+settings = ()
+print(settings.my_env)
+#> my_value
+print(settings.my_azure_secret)
+#> secret_sauce
+print(settings.my_aws_secret)
 #> secret_sauce
 ```
 

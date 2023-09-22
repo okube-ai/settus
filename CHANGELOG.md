@@ -1,6 +1,6 @@
 # Release History
 
-## [0.0.5]
+## [0.0.6]
 **Added**
 - 
 
@@ -13,10 +13,13 @@
 **Breaking Change**
 -
 
+## [0.0.5] - 2023-09-22
+**Added**
+- Support for AWS secrets
+
 ## [0.0.4] - 2023-09-21
 **Added**
 - Support for the same alias(es) used across multiple fields
-
 
 ## [0.0.3] - 2023-09-17
 **Added**

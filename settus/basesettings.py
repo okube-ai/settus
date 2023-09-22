@@ -20,6 +20,7 @@ from pydantic_settings.sources import (
 )
 
 from .keyvaultsettingssource import KeyVaultSettingsSource
+from .awssecretssettingssource import AWSSecretsSettingsSource
 
 
 class BaseSettings(_BaseSettings):
@@ -51,6 +52,7 @@ class BaseSettings(_BaseSettings):
             init_settings,
             env_settings,
             KeyVaultSettingsSource(settings_cls),
+            AWSSecretsSettingsSource(settings_cls),
             # file_secret_settings,
         )
 

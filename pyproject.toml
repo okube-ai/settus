@@ -49,6 +49,7 @@ azure = [
     "azure-keyvault"
 ]
 aws = [
+    "boto3",
 ]
 gcp = [
 ]
