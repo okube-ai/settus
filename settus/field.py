@@ -9,6 +9,7 @@ from azure.core.credentials import TokenCredential
 class FieldInfo(_FieldInfo):
     kayvault_url: Union[str, None] = None
     kayvault_credentials: Union[TokenCredential, None] = None
+    aws_secret_name: Union[str, None] = None
     # TODO: Fix and use
 
 
