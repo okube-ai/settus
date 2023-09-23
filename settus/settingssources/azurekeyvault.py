@@ -3,8 +3,6 @@ from typing import Any, Dict, Tuple, Union
 from pydantic.fields import FieldInfo
 from pydantic_settings.sources import PydanticBaseEnvSettingsSource
 
-from azure.identity import DefaultAzureCredential
-
 
 class AzureKeyVault(PydanticBaseEnvSettingsSource):
     """
