@@ -3,8 +3,6 @@ from typing import Any, Dict, Tuple, Union
 from pydantic.fields import FieldInfo
 from pydantic_settings.sources import PydanticBaseEnvSettingsSource
 
-from azure.identity import DefaultAzureCredential
-
 
 class AzureKeyVault(PydanticBaseEnvSettingsSource):
     """
@@ -39,9 +37,10 @@ class AzureKeyVault(PydanticBaseEnvSettingsSource):
         #  - AZURE_TENANT_ID
         #  - AZURE_CLIENT_ID
         #  - AZURE_CLIENT_SECRET
-        from azure.keyvault.secrets import SecretClient
         from azure.core.exceptions import ResourceNotFoundError
         from azure.core.exceptions import HttpResponseError
+        from azure.identity import DefaultAzureCredential
+        from azure.keyvault.secrets import SecretClient
 
         if keyvault_credentials is None:
             keyvault_credentials = DefaultAzureCredential()
