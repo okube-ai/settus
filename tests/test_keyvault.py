@@ -13,6 +13,11 @@ KEYVAULT_URL = "https://kv-laktory-dev.vault.azure.net/"
 
 def test_keyvault():
 
+    try:
+        import azure
+    except ModuleNotFoundError:
+        return
+
     class Settings(BaseSettings):
         model_config = SettingsConfigDict(keyvault_url=KEYVAULT_URL)
         env_1: str = Field(default="undefined")

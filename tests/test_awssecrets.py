@@ -13,6 +13,11 @@ SECRET_NAME = "laktory"
 
 def test_aws_secrets():
 
+    try:
+        import boto3
+    except ModuleNotFoundError:
+        return
+
     class Settings(BaseSettings):
         model_config = SettingsConfigDict(aws_secret_name=SECRET_NAME)
         env_1: str = Field(default="undefined")
