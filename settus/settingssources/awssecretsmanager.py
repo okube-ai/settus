@@ -5,9 +5,6 @@ from typing import Any, Dict, Tuple, Union
 from pydantic.fields import FieldInfo
 from pydantic_settings.sources import PydanticBaseEnvSettingsSource
 
-import boto3
-from botocore.exceptions import ClientError
-
 
 class AWSSecretsManager(PydanticBaseEnvSettingsSource):
     """
@@ -37,6 +34,8 @@ class AWSSecretsManager(PydanticBaseEnvSettingsSource):
         #  - AWS_ACCESS_KEY_ID
         #  - AWS_SECRET_ACCESS_KEY
         #  - AWS_REGION
+        import boto3
+        from botocore.exceptions import ClientError
 
         # Session
         session = boto3.session.Session()
