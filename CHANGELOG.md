@@ -1,5 +1,16 @@
 # Release History
 
+## [0.0.7]
+
+**Added**
+-
+
+**Fixed**
+- 
+
+**Updated**
+- 
+
 ## [0.0.6] - 2023-09-23
 **Fixed**
 - ModuleNotFoundError with optional dependencies
