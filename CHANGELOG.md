@@ -1,6 +1,6 @@
 # Release History
 
-## [0.0.8]
+## [0.0.9]
 
 **Added**
 -
@@ -9,7 +9,12 @@
 - 
 
 **Updated**
-- 
+-
+
+## [0.0.8] - 2023-09-24
+
+**Added**
+- Lean tests for installation without optional dependencies
 
 ## [0.0.7] - 2023-09-24
 
