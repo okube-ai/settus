@@ -15,6 +15,21 @@ class AWSSecretsManager(PydanticBaseEnvSettingsSource):
     def get_field_value(
         self, field: FieldInfo, field_name: str
     ) -> Tuple[Any, str, bool]:
+        """
+        Get field value from AWS Secrets Manager
+
+        Parameters
+        ----------
+        field:
+            Field
+        field_name
+            Field name
+
+        Returns
+        -------
+        field_value, field_key, is_complex
+            Output used in `__call__` method
+        """
         secret_name = None
 
         # Get keyvault from field
@@ -42,8 +57,7 @@ class AWSSecretsManager(PydanticBaseEnvSettingsSource):
 
         # Client
         client = session.client(
-            service_name='secretsmanager',
-            region_name=os.getenv("AWS_REGION")
+            service_name="secretsmanager", region_name=os.getenv("AWS_REGION")
         )
 
         env_val: Union[str, None] = None

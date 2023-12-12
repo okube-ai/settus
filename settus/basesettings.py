@@ -24,6 +24,31 @@ from settus.settingssources.awssecretsmanager import AWSSecretsManager
 
 
 class BaseSettings(_BaseSettings):
+    """
+    Base Settings class.
+
+    Examples
+    --------
+    ```py
+    import os
+    from settus import BaseSettings
+    from settus import Field
+    from settus import SettingsConfigDict
+
+    KEYVAULT_URL = "https://o3-kv-settus-dev.vault.azure.net/"
+    os.environ["MY_ENV"] = "my_value"
+
+    class Settings(BaseSettings):
+        model_config = SettingsConfigDict(keyvault_url=KEYVAULT_URL)
+        my_env: str = Field(default="undefined")
+        my_azure_secret: str = Field(default="undefined", alias="my-secret")
+
+    settings = Settings()
+    print(settings)
+    #> my_env='my_value' my_azure_secret='secretsauce'
+    ```
+    """
+
     model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
     @property
@@ -47,6 +72,28 @@ class BaseSettings(_BaseSettings):
         dotenv_settings: PydanticBaseSettingsSource,
         file_secret_settings: PydanticBaseSettingsSource,
     ) -> Tuple[PydanticBaseSettingsSource, ...]:
+        """
+        Supported sources and priority. Can be subclassed to overwrite the
+        default priority list:
+
+        * Init values
+        * Environment variables
+        * Azure keyvault settings
+        * AWS Secrets Manager
+
+        Parameters
+        ----------
+        settings_cls:
+            Definition of base class
+        init_settings:
+            Values provided from fields init
+        env_settings:
+            Values provided from environment variables
+        dotenv_settings:
+            Values provided from .env file
+        file_secret_settings:
+            Values provided from secrets file
+        """
         # Highest priority listed first
         return (
             init_settings,
@@ -66,7 +113,6 @@ class BaseSettings(_BaseSettings):
         _env_nested_delimiter: str | None = None,
         _secrets_dir: str | Path | None = None,
     ) -> dict[str, Any]:
-
         # ------------------------------------------------------------------- #
         # Settus-specific validation                                          #
         # ------------------------------------------------------------------- #
@@ -92,18 +138,36 @@ class BaseSettings(_BaseSettings):
         # ------------------------------------------------------------------- #
 
         # Determine settings config values
-        case_sensitive = _case_sensitive if _case_sensitive is not None else self.model_config.get('case_sensitive')
-        env_prefix = _env_prefix if _env_prefix is not None else self.model_config.get('env_prefix')
-        env_file = _env_file if _env_file != ENV_FILE_SENTINEL else self.model_config.get('env_file')
+        case_sensitive = (
+            _case_sensitive
+            if _case_sensitive is not None
+            else self.model_config.get("case_sensitive")
+        )
+        env_prefix = (
+            _env_prefix
+            if _env_prefix is not None
+            else self.model_config.get("env_prefix")
+        )
+        env_file = (
+            _env_file
+            if _env_file != ENV_FILE_SENTINEL
+            else self.model_config.get("env_file")
+        )
         env_file_encoding = (
-            _env_file_encoding if _env_file_encoding is not None else self.model_config.get('env_file_encoding')
+            _env_file_encoding
+            if _env_file_encoding is not None
+            else self.model_config.get("env_file_encoding")
         )
         env_nested_delimiter = (
             _env_nested_delimiter
             if _env_nested_delimiter is not None
-            else self.model_config.get('env_nested_delimiter')
+            else self.model_config.get("env_nested_delimiter")
         )
-        secrets_dir = _secrets_dir if _secrets_dir is not None else self.model_config.get('secrets_dir')
+        secrets_dir = (
+            _secrets_dir
+            if _secrets_dir is not None
+            else self.model_config.get("secrets_dir")
+        )
 
         # Configure built-in sources
         init_settings = InitSettingsSource(self.__class__, init_kwargs=init_kwargs)
@@ -123,7 +187,10 @@ class BaseSettings(_BaseSettings):
         )
 
         file_secret_settings = SecretsSettingsSource(
-            self.__class__, secrets_dir=secrets_dir, case_sensitive=case_sensitive, env_prefix=env_prefix
+            self.__class__,
+            secrets_dir=secrets_dir,
+            case_sensitive=case_sensitive,
+            env_prefix=env_prefix,
         )
         # Provide a hook to set built-in sources priority and add / remove sources
         sources = self.settings_customise_sources(
@@ -134,7 +201,6 @@ class BaseSettings(_BaseSettings):
             file_secret_settings=file_secret_settings,
         )
         if sources:
-
             # --------------------------------------------------------------- #
             # Settus-specific parsing                                         #
             # --------------------------------------------------------------- #

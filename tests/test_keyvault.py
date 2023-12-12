@@ -8,11 +8,10 @@ from settus import SettingsConfigDict
 
 os.environ["ENV_1"] = "v1"
 
-KEYVAULT_URL = "https://kv-laktory-dev.vault.azure.net/"
+KEYVAULT_URL = "https://o3-kv-settus-dev.vault.azure.net/"
 
 
 def test_keyvault():
-
     try:
         import azure
     except ModuleNotFoundError:
@@ -23,8 +22,12 @@ def test_keyvault():
         env_1: str = Field(default="undefined")
         top: str = Field(default="undefined")
         kv_1: str = Field(default="undefined", alias="my-secret")
-        kv_2: str = Field(default="undefined", alias=AliasChoices("not-my-secret", "my-secret"))
-        kv_3: str = Field(default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL)
+        kv_2: str = Field(
+            default="undefined", alias=AliasChoices("not-my-secret", "my-secret")
+        )
+        kv_3: str = Field(
+            default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL
+        )
         kv_4: str = Field(default="undefined", alias=AliasChoices("not-my-secret"))
 
     settings = Settings()
@@ -38,4 +41,3 @@ def test_keyvault():
 
 if __name__ == "__main__":
     test_keyvault()
-

@@ -1,0 +1,99 @@
+site_name: Settus
+site_description: Settings management using Pydantic Settings with could extensions
+site_url: https://www.okube.ai/settus
+repo_url: https://github.com/opencubes-ai/settus
+repo_name: settus
+
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/mkdocstrings.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.snippets  # link between markdown (changelog)
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: "¤"
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - content.action.view
+    - content.code.copy
+    - content.code.select
+    - content.code.annotate
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.path
+    - search.highlight
+    - search.suggest
+    - toc.follow
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          import:
+          - https://docs.python.org/3/objects.inv
+          - https://installer.readthedocs.io/en/stable/objects.inv  # demonstration purpose in the docs
+          - https://mkdocstrings.github.io/autorefs/objects.inv
+          paths: [src]
+          options:
+            docstring_options:
+              ignore_init_summary: true
+            docstring_section_style: spacy
+            docstring_style: numpy
+            filters: ["!^_"]
+            group_by_category: true
+            heading_level: 2
+            inherited_members: false  # this only apply to methods and properties, not to pydantic fields
+            members_order: source
+            merge_init_into_class: true
+            separate_signature: true
+            show_category_heading: true
+            show_if_no_docstring: false
+            show_root_full_path: true
+            show_root_heading: true
+            show_signature_annotations: false  # redundant as annotations available in parameters section
+            show_source: true
+            show_symbol_type_heading: true  # sponsors only
+            show_symbol_type_toc: true  # sponsors only
+            signature_crossrefs: true
+            summary: true
+
+nav:
+  - Get Started:
+    - About: index.md
+    - Installation: install.md
+    - Quickstart: quickstart.md
+  - How-To Guides: guides/index.md
+  - API Reference:
+    - BaseSettings: api/basesettings.md
+    - Field: api/field.md
+    - SettingsConfigDict: api/settingsconfigdict.md
+    - SettingsSources:
+        - api/settingssources/awssecretsmanager.md
+        - api/settingssources/azurekeyvault.md
+  - Changelog: changelog.md

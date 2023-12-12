@@ -1,0 +1,1 @@
+::: settus.settingssources.AWSSecretsManager

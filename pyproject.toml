@@ -24,9 +24,15 @@ requires-python = ">=3.9"
 keywords = ["one", "two"]
 license = {text = "MIT"}
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Pydantic :: 2",
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
 ]
 dynamic = ["version"]
 dependencies = [
@@ -37,11 +43,14 @@ dependencies = [
 dev = [
     "black",
 #    "flit",
-    "twine",
+    "mkdocs",
+    "mkdocstrings[python]",
+    "mkdocs-material",
 ]
 test = [
     "pytest",
     "pytest-cov",
+    "pytest-examples",
 #    "tox"
 ]
 azure = [
@@ -66,3 +75,17 @@ include = ["settus*"]
 [tool.setuptools.dynamic]
 version = {attr = "settus._version.VERSION"}
 
+
+[tool.ruff]
+#line-length = 120
+#extend-select = ['Q', 'RUF100', 'C90', 'UP', 'I', 'D', 'T']
+extend-ignore = []
+#flake8-quotes = {inline-quotes = 'single', multiline-quotes = 'double'}
+#mccabe = { max-complexity = 14 }
+#isort = { known-first-party = ['pydantic', 'tests'] }
+target-version = "py39"
+#extend-exclude = ['pydantic/v1', 'tests/mypy/outputs']
+builtins = []
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
