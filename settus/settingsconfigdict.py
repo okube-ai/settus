@@ -26,17 +26,19 @@ class SettingsConfigDict(_SettingsConfigDict, total=False):
     Examples
     --------
     ```py
-    import os
     from settus import BaseSettings
     from settus import Field
     from settus import SettingsConfigDict
 
     class Settings(BaseSettings):
-        model_config = SettingsConfigDict(keyvault_url="https://my-keyvault.vault.azure.net/")
+        model_config = SettingsConfigDict(
+            keyvault_url="https://o3-kv-settus-dev.vault.azure.net/"
+        )
         my_azure_secret: str = Field(default="undefined", alias="my-secret")
 
     settings = Settings()
     print(settings)
+    #> my_azure_secret='secretsauce'
     ```
     """
     keyvault_url: Union[str, None]

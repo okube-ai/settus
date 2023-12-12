@@ -36,7 +36,7 @@ import os
 from settus import BaseSettings
 from settus import Field
 
-KEYVAULT_URL = "https://my-keyvault.vault.azure.net/"
+KEYVAULT_URL = "https://o3-kv-settus-dev.vault.azure.net/"
 AWS_SECRET_NAME = "vault"
 
 os.environ["MY_ENV"] = "my_value"
@@ -45,7 +45,7 @@ class Settings(BaseSettings):
     # Value from environment variable "MY_ENV"
     my_env: str = Field(default="undefined")
     
-    # Value from the Azure keyvault named `my-keyvault` with secret key `my-secret` 
+    # Value from the Azure keyvault named `o3-kv-settus-dev` with secret key `my-secret` 
     my_azure_secret: str = Field(default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL)
     
     # Value from the secret named `vault` in AWS secrets manager and having the secret key `my-secret`

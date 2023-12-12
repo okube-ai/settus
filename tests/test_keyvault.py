@@ -8,7 +8,7 @@ from settus import SettingsConfigDict
 
 os.environ["ENV_1"] = "v1"
 
-KEYVAULT_URL = "https://kv-laktory-dev.vault.azure.net/"
+KEYVAULT_URL = "https://o3-kv-settus-dev.vault.azure.net/"
 
 
 def test_keyvault():
