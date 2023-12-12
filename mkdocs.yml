@@ -88,9 +88,7 @@ nav:
     - About: index.md
     - Installation: install.md
     - Quickstart: quickstart.md
-
   - How-To Guides: guides/index.md
-
   - API Reference:
     - BaseSettings: api/basesettings.md
     - Field: api/field.md
