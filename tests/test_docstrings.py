@@ -9,7 +9,6 @@ from pytest_examples import find_examples, CodeExample, EvalExample
 
 @pytest.mark.parametrize("example", find_examples("./settus"), ids=str)
 def test_docstrings_spark_functions(example: CodeExample, eval_example: EvalExample):
-
     try:
         import azure
         import boto3
@@ -20,8 +19,7 @@ def test_docstrings_spark_functions(example: CodeExample, eval_example: EvalExam
         eval_example.format(example)
         eval_example.run_print_update(
             example,
-            module_globals={
-            },
+            module_globals={},
         )
     else:
         eval_example.lint(example)

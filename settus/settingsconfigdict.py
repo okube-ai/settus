@@ -41,6 +41,7 @@ class SettingsConfigDict(_SettingsConfigDict, total=False):
     #> my_azure_secret='secretsauce'
     ```
     """
+
     keyvault_url: Union[str, None]
     keyvault_credentials: Union[C, None]
     aws_secret_name: Union[str, None]

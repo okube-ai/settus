@@ -57,8 +57,7 @@ class AWSSecretsManager(PydanticBaseEnvSettingsSource):
 
         # Client
         client = session.client(
-            service_name='secretsmanager',
-            region_name=os.getenv("AWS_REGION")
+            service_name="secretsmanager", region_name=os.getenv("AWS_REGION")
         )
 
         env_val: Union[str, None] = None

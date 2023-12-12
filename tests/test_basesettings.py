@@ -12,7 +12,6 @@ os.environ["E3"] = "10"
 
 
 def test_basesettings():
-
     class Settings(BaseSettings):
         my_secret: str = ""
         your_secret: int = 25
@@ -23,11 +22,11 @@ def test_basesettings():
 
 
 def test_name_conflicts():
-
     class Settings1(BaseSettings):
         """
         Two settings sharing the same env var should have the same value.
         """
+
         s1: str = Field(default="s1", alias="e1")
         s2: str = Field(default="s2", alias="e1")
 
@@ -44,6 +43,7 @@ def test_name_conflicts():
         """
         List alias choices are accounted in order
         """
+
         s1: str = Field(default="s1", alias="e1")
         s2: str = Field(default="s2", alias=AliasChoices("e2", "e1"))
         s3: str = Field(default="s3", alias=AliasChoices("e2", "e1"))
@@ -59,10 +59,12 @@ def test_name_conflicts():
 
     # Input alias should not be allowed to avoid conflict and generate exception
     with pytest.raises(ValueError):
+
         class Settings3(BaseSettings):
             """
             List alias choices are accounted in order
             """
+
             model_config = ConfigDict(populate_by_name=False)
             s1: str = Field(default="s1", alias="e1")
 
@@ -70,7 +72,6 @@ def test_name_conflicts():
 
 
 def test_type_cast():
-
     class Settings(BaseSettings):
         s1: str = Field(default="s1", alias="e3")
         s2: int = Field(default="s2", alias="e3")
@@ -84,4 +85,3 @@ if __name__ == "__main__":
     test_basesettings()
     test_name_conflicts()
     test_type_cast()
-
