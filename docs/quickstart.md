@@ -52,23 +52,29 @@ AWS_SECRET_NAME = "vault"
 
 os.environ["MY_ENV"] = "my_value"
 
+
 class Settings(BaseSettings):
     # Value from environment variable "MY_ENV"
     my_env: str = Field(default="undefined")
-    
-    # Value from the Azure keyvault named `o3-kv-settus-dev` with secret key `my-secret` 
-    my_azure_secret: str = Field(default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL)
-    
-    # Value from the secret named `vault` in AWS secrets manager and having the secret key `my-secret`
-    my_aws_secret: str = Field(default="undefined", alias="my-secret", aws_secret_name=AWS_SECRET_NAME)
 
-settings = ()
+    # Value from the Azure keyvault named `o3-kv-settus-dev` with secret key `my-secret`
+    my_azure_secret: str = Field(
+        default="undefined", alias="my-secret", keyvault_url=KEYVAULT_URL
+    )
+
+    # Value from the secret named `vault` in AWS secrets manager and having the secret key `my-secret`
+    my_aws_secret: str = Field(
+        default="undefined", alias="my-secret", aws_secret_name=AWS_SECRET_NAME
+    )
+
+
+settings = Settings()
 print(settings.my_env)
 #> my_value
 print(settings.my_azure_secret)
-#> secret_sauce
+#> secretsauce
 print(settings.my_aws_secret)
-#> secret_sauce
+#> secretsauce
 ```
 
 ## Configuration Dict Example
@@ -89,17 +95,21 @@ AWS_SECRET_NAME = "vault"
 
 os.environ["MY_ENV"] = "my_value"
 
+
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(keyvault_url=KEYVAULT_URL, aws_secret_name=AWS_SECRET_NAME)
+    model_config = SettingsConfigDict(
+        keyvault_url=KEYVAULT_URL, aws_secret_name=AWS_SECRET_NAME
+    )
     my_env: str = Field(default="undefined")
     my_azure_secret: str = Field(default="undefined", alias="my-secret")
     my_aws_secret: str = Field(default="undefined", alias="my-secret")
 
-settings = ()
+
+settings = Settings()
 print(settings.my_env)
 #> my_value
 print(settings.my_azure_secret)
-#> secret_sauce
+#> secretsauce
 print(settings.my_aws_secret)
-#> secret_sauce
+#> secretsauce
 ```

@@ -51,7 +51,7 @@ class Settings(BaseSettings):
     # Value from the secret named `vault` in AWS secrets manager and having the secret key `my-secret`
     my_aws_secret: str = Field(default="undefined", alias="my-secret", aws_secret_name=AWS_SECRET_NAME)
 
-settings = ()
+settings = Settings()
 print(settings.my_env)
 #> my_value
 print(settings.my_azure_secret)
