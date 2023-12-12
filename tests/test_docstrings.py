@@ -52,11 +52,9 @@ def test_docstrings_spark_functions(example: CodeExample, eval_example: EvalExam
         return
 
     if eval_example.update_examples:
-        # eval_example.format_black(example)
         eval_example.format(example)
         eval_example.run_print_update(example)
 
     else:
-        # eval_example.lint_black(example)
         eval_example.lint(example)
         eval_example.run_print_check(example)
