@@ -24,6 +24,30 @@ from settus.settingssources.awssecretsmanager import AWSSecretsManager
 
 
 class BaseSettings(_BaseSettings):
+    """
+    Base Settings class.
+
+    Examples
+    --------
+    ```py
+    import os
+    from settus import BaseSettings
+    from settus import Field
+    from settus import SettingsConfigDict
+
+    KEYVAULT_URL = "https://o3-kv-settus-dev.vault.azure.net/"
+    os.environ["MY_ENV"] = "my_value"
+
+    class Settings(BaseSettings):
+        model_config = SettingsConfigDict(keyvault_url=KEYVAULT_URL)
+        my_env: str = Field(default="undefined")
+        my_azure_secret: str = Field(default="undefined", alias="my-secret")
+
+    settings = Settings()
+    print(settings)
+    #> my_env='my_value' my_azure_secret='secretsauce'
+    ```
+    """
     model_config = ConfigDict(populate_by_name=True, extra="forbid")
 
     @property
@@ -47,6 +71,28 @@ class BaseSettings(_BaseSettings):
         dotenv_settings: PydanticBaseSettingsSource,
         file_secret_settings: PydanticBaseSettingsSource,
     ) -> Tuple[PydanticBaseSettingsSource, ...]:
+        """
+        Supported sources and priority. Can be subclassed to overwrite the
+        default priority list:
+
+        * Init values
+        * Environment variables
+        * Azure keyvault settings
+        * AWS Secrets Manager
+
+        Parameters
+        ----------
+        settings_cls:
+            Definition of base class
+        init_settings:
+            Values provided from fields init
+        env_settings:
+            Values provided from environment variables
+        dotenv_settings:
+            Values provided from .env file
+        file_secret_settings:
+            Values provided from secrets file
+        """
         # Highest priority listed first
         return (
             init_settings,

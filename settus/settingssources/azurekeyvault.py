@@ -13,6 +13,21 @@ class AzureKeyVault(PydanticBaseEnvSettingsSource):
     def get_field_value(
         self, field: FieldInfo, field_name: str
     ) -> Tuple[Any, str, bool]:
+        """
+        Get field value from keyvault
+
+        Parameters
+        ----------
+        field:
+            Field
+        field_name
+            Field name
+
+        Returns
+        -------
+        field_value, field_key, is_complex
+            Output used in `__call__` method
+        """
         keyvault_url = None
         keyvault_credentials = None
 

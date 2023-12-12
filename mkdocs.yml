@@ -92,5 +92,10 @@ nav:
   - How-To Guides: guides/index.md
 
   - API Reference:
+    - BaseSettings: api/basesettings.md
+    - Field: api/field.md
     - SettingsConfigDict: api/settingsconfigdict.md
+    - SettingsSources:
+        - api/settingssources/awssecretsmanager.md
+        - api/settingssources/azurekeyvault.md
   - Changelog: changelog.md

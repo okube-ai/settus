@@ -23,7 +23,44 @@ def Field(
     keyvault_url: str = None,
     keyvault_credentials: C = None,
     **kwargs,
-):
+) -> _Field:
+    """
+    Settus Field
+
+    Parameters
+    ----------
+    args:
+        Pydantic field args
+    keyvault_url:
+        Keyvault URL for this specific field. Overwrite model config.
+    keyvault_credentials
+        Keyvault credentials for this specific field.  Overwrite model config.
+    kwargs
+        Pydantic field kwargs
+
+    Returns
+    -------
+    :
+        Field
+
+    Examples
+    --------
+    ```py
+    from settus import BaseSettings
+    from settus import Field
+
+    class Settings(BaseSettings):
+        my_azure_secret: str = Field(
+            default="undefined",
+            alias="my-secret",
+            keyvault_url="https://o3-kv-settus-dev.vault.azure.net/",
+        )
+
+    settings = Settings()
+    print(settings)
+    #> my_azure_secret='secretsauce'
+    ```
+    """
     field_info = _Field(
         *args,
         keyvault_url=keyvault_url,
