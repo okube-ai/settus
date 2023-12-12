@@ -13,17 +13,17 @@
 # PyCharm configuration
 **/.idea/**
 
-# Local settings and environment variables
+# Seecret values
 secrets/*.*
 
 # --------------------------------------------------------------------------- #
 # Installation and build                                                      #
 # --------------------------------------------------------------------------- #
 
-#**/*.egg-info/**
-dist
+**/*.egg-info
 build
-#**/dist/**
+dist
+/site/
 
 # --------------------------------------------------------------------------- #
 # Testing and coverage                                                        #
@@ -33,6 +33,9 @@ build
 .coverage
 coverage.xml
 htmlcov
+
+# Test data
+tests/data
 
 # Test results
 junit

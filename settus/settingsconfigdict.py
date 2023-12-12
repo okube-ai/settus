@@ -11,6 +11,34 @@ except ModuleNotFoundError:
 
 
 class SettingsConfigDict(_SettingsConfigDict, total=False):
+    """
+    Cloud configuration
+
+    Attributes
+    ----------
+    keyvault_url:
+        Keyvault URL
+    keyvault_credentials:
+        Azure Token credentials
+    aws_secret_name:
+        AWS secret name
+
+    Examples
+    --------
+    ```py
+    import os
+    from settus import BaseSettings
+    from settus import Field
+    from settus import SettingsConfigDict
+
+    class Settings(BaseSettings):
+        model_config = SettingsConfigDict(keyvault_url="https://my-keyvault.vault.azure.net/")
+        my_azure_secret: str = Field(default="undefined", alias="my-secret")
+
+    settings = Settings()
+    print(settings)
+    ```
+    """
     keyvault_url: Union[str, None]
     keyvault_credentials: Union[C, None]
     aws_secret_name: Union[str, None]
