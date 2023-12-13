@@ -1,6 +1,16 @@
 # Release History
 
-## [0.0.9] - Unreleased
+## [0.0.10] - Unreleased
+### Added
+* n/a
+### Fixed
+* n/a
+### Updated
+* n/a
+### Breaking changes
+* n/a
+
+## [0.0.9] - 2023-12-13
 ### Added
 * Docstrings documentation
 * Release tags
