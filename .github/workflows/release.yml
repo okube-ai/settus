@@ -42,11 +42,20 @@ jobs:
         id: get_version
         run: |
           import os
+          from datetime import datetime
+          
+          # Get version
           with open("./settus/_version.py") as fp:
             v = fp.read().split("=")[-1].strip().replace('"', '')
+          
+          # Get date
+          date = datetime.utcnow().date().isoformat()
+          
           with open(os.environ['GITHUB_OUTPUT'], 'a') as fp:
             print(f"version={v}", file=fp)
-          print(f"Releasing settus {v}")
+            print(f"date={date}", file=fp)
+            print()
+          print(f"Releasing settus {v} ({date})")
         shell: python
 
       - name: Set up Git
@@ -57,6 +66,18 @@ jobs:
 
       - name: Push release tag
         run: git push origin v${{ steps.get_version.outputs.version }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          release_name: v${{ steps.get_version.outputs.version }} ({{steps.get_version.outputs.date}})
+          body: |
+            Describe your release here.
+          draft: false
+          prerelease: false
 
 
   bump:
