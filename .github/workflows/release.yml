@@ -79,9 +79,14 @@ jobs:
           tag_name: v${{ steps.get_version.outputs.version }}
           release_name: v${{ steps.get_version.outputs.version }} (${{steps.get_version.outputs.date}})
           body: |
-            ${{ steps.get_body.outputs.body }}
+            # test\n
+            * allo
           draft: false
           prerelease: false
+
+
+#            ${{ steps.get_body.outputs.body }}
+
 #
 #
 #  bump:
