@@ -33,6 +33,9 @@ def main():
     print(changes)
     print("--------------")
 
+    # Add header
+    changes = f"##What’s new\n{changes}"
+
     # Add compare to previous release
     previous_version = blocks[2].split("]")[0]
     changes += f"\n\nFull [Changelog](https://github.com/okube-ai/{package_name}/compare/v{previous_version}...v{release_version}/)"
