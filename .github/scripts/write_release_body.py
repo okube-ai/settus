@@ -35,7 +35,7 @@ def main():
 
     # Add compare to previous release
     previous_version = blocks[2].split("]")[0]
-    changes += f"\nFull [Changelog](https://github.com/okube-ai/{package_name}/compare/v{previous_version}...v{release_version}/)"
+    changes += f"\n\nFull [Changelog](https://github.com/okube-ai/{package_name}/compare/v{previous_version}...v{release_version}/)"
 
     # Write body
     print(f"Writing body {body_filepath}")
