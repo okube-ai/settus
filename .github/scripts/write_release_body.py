@@ -17,25 +17,30 @@ def main():
 
     # Read version file
     with open(version_filepath) as fp:
-        v0 = fp.read().split("=")[-1].strip().replace('"', '')
-    print(f"Get changes for {package_name} {v0}")
+        release_version = fp.read().split("=")[-1].strip().replace('"', '')
+    print(f"Get changes for {package_name} {release_version}")
 
     # Read changelog
     with open(changelog_filepath, 'r') as fp:
         content = fp.read()
+    blocks = content.split("## [")
 
     # Select latest changes
-    content = content.split("## ")[1]
-    content = "\n".join(content.split("\n")[1:]).strip()
+    changes = blocks[1]
+    changes = "\n".join(changes.split("\n")[1:]).strip()
     print("Release Content")
     print("---------------")
-    print(content)
+    print(changes)
     print("--------------")
+
+    # Add compare to previous release
+    previous_version = blocks[2].split("]")[0]
+    changes += f"\nFull [Changelog](https://github.com/okube-ai/{package_name}/compare/v{previous_version}...v{release_version}/)"
 
     # Write body
     print(f"Writing body {body_filepath}")
     with open(body_filepath, 'w') as fp:
-        fp.write(content)
+        fp.write(changes)
 
     if os.getenv("GITHUB_OUTPUT") is None:
         os.remove(body_filepath)
