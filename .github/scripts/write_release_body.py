@@ -28,17 +28,19 @@ def main():
     # Select latest changes
     changes = blocks[1]
     changes = "\n".join(changes.split("\n")[1:]).strip()
-    print("Release Content")
-    print("---------------")
-    print(changes)
-    print("--------------")
+    changes = changes.replace("###", "####")
 
     # Add header
-    changes = f"##What’s new\n{changes}"
+    changes = f"### What’s new\n{changes}"
 
     # Add compare to previous release
     previous_version = blocks[2].split("]")[0]
     changes += f"\n\nFull [Changelog](https://github.com/okube-ai/{package_name}/compare/v{previous_version}...v{release_version}/)"
+
+    print("Release Content")
+    print("---------------")
+    print(changes)
+    print("--------------")
 
     # Write body
     print(f"Writing body {body_filepath}")
