@@ -12,9 +12,8 @@ def main():
 
     # Filepaths
     version_filepath = os.path.join(package_root, "_version.py")
-    local_env_filepath = os.path.join(script_root, "git.env")
-    git_env_filepath = os.getenv("GITHUB_OUTPUT", local_env_filepath)
     changelog_filepath = os.path.join("./", "CHANGELOG.md")
+    body_filepath = os.path.join(script_root, "release_body.md")
 
     # Read version file
     with open(version_filepath) as fp:
@@ -33,15 +32,13 @@ def main():
     print(content)
     print("--------------")
 
-    # Set content as git action variable
-    print(f"Setting git env var body {git_env_filepath}")
-    with open(git_env_filepath, 'a') as fp:
-        # fp.write(f"body='{content}'")
-        fp.write(f"body='* test'")
+    # Write body
+    print(f"Writing body {body_filepath}")
+    with open(body_filepath, 'w') as fp:
+        fp.write(content)
 
-    # Cleanup
-    if git_env_filepath == local_env_filepath and os.path.exists(local_env_filepath):
-        os.remove(local_env_filepath)
+    if os.getenv("GITHUB_OUTPUT") is None:
+        os.remove(body_filepath)
 
 
 if __name__ == "__main__":
