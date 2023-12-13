@@ -2,7 +2,9 @@
 
 ## [0.0.9] - Unreleased
 ### Added
-* Documentation
+* Docstrings documentation
+* Release tags
+* Documentation site
 
 ## [0.0.8] - 2023-09-24
 ### Added
