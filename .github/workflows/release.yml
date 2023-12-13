@@ -38,7 +38,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get versions
+      - name: Get version
         id: get_version
         run: |
           import os
@@ -58,6 +58,10 @@ jobs:
           print(f"Releasing settus {v} ({date})")
         shell: python
 
+      - name: Get release body
+        id: get_body
+        run: python ./.github/scripts/get_release_body.py
+
       - name: Set up Git
         run: git config --global user.email "actions@github.com" && git config --global user.name "GitHub Actions"
 
@@ -75,7 +79,7 @@ jobs:
           tag_name: v${{ steps.get_version.outputs.version }}
           release_name: v${{ steps.get_version.outputs.version }} (${{steps.get_version.outputs.date}})
           body: |
-            Describe your release here.
+            ${{ steps.get_body.outputs.body }}
           draft: false
           prerelease: false
 #
