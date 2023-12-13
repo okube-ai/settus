@@ -36,7 +36,8 @@ def main():
     # Set content as git action variable
     print(f"Setting git env var body {git_env_filepath}")
     with open(git_env_filepath, 'a') as fp:
-        fp.write(f"body='{content}'")
+        # fp.write(f"body='{content}'")
+        fp.write(f"body=test")
 
     # Cleanup
     if git_env_filepath == local_env_filepath and os.path.exists(local_env_filepath):
