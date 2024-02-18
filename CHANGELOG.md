@@ -1,14 +1,8 @@
 # Release History
 
 ## [0.0.10] - Unreleased
-### Added
-* n/a
-### Fixed
-* n/a
 ### Updated
-* n/a
-### Breaking changes
-* n/a
+* pydantic_settings version requirements
 
 ## [0.0.9] - 2023-12-13
 ### Added
