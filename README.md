@@ -8,7 +8,7 @@
 
 Settings management using Pydantic Settings with cloud extensions.
 
-<img src="docs/images/logo_sb.png" alt="settus logo" width="85"/>
+<img src="docs/images/settus_sb.png" alt="settus logo" width="85"/>
 
 Settus makes it possible to securely access local and cloud-stored secrets from multiple environments, with pre-defined fallback plans. Supported secrets provider are
 
@@ -65,6 +65,9 @@ print(settings.my_aws_secret)
 To get started with more examples, jump into the [Quickstart](https://www.okube.ai/settus/quickstart/).
 
 ## Okube Company
-Okube is dedicated to build open source frameworks, the *kubes*, that empower businesses to build and deploy highly scalable data platforms and AI models. Contributions are more than welcome.
+<img src="docs/images/okube.png" alt="okube logo" width="85"/>
+
+[Okube](https://www.okube.ai) is dedicated to building open source frameworks, known as the *kubes*, empowering businesses to build, deploy and operate highly scalable data platforms and AI models. 
+
 
 

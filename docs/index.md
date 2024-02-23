@@ -1,5 +1,5 @@
 
-<img src="images/logo_sb.png" alt="settus logo" width="85"/>
+<img src="images/settus_sb.png" alt="settus logo" width="85"/>
 
 Settings management using Pydantic Settings with could extensions.
 
