@@ -8,6 +8,8 @@
 
 Settings management using Pydantic Settings with cloud extensions.
 
+<img src="docs/images/logo_sb.png" alt="settus logo" width="85"/>
+
 Settus makes it possible to securely access local and cloud-stored secrets from multiple environments, with pre-defined fallback plans. Supported secrets provider are
 
 * Azure Keyvault
