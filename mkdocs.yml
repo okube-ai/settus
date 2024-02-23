@@ -1,4 +1,4 @@
-site_name: Settus
+site_name: " "
 site_description: Settings management using Pydantic Settings with could extensions
 site_url: https://www.okube.ai/settus
 repo_url: https://github.com/opencubes-ai/settus
@@ -50,6 +50,8 @@ theme:
     - search.highlight
     - search.suggest
     - toc.follow
+  logo: images/logo_sw_ltw.png
+  favicon: images/logo_sg.png
 
 plugins:
   - mkdocstrings:
