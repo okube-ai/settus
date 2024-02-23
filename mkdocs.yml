@@ -50,8 +50,8 @@ theme:
     - search.highlight
     - search.suggest
     - toc.follow
-  logo: images/logo_sw_ltw.png
-  favicon: images/logo_sg.png
+  logo: images/settus_sw_ltw.png
+  favicon: images/settus_sg.png
 
 plugins:
   - mkdocstrings:
